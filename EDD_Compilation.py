@@ -541,7 +541,7 @@ def main():
         }
         </style>
         <div style="text-align: center; background-color:#d1d1e4; border-radius: 20px; padding: 10px;">
-            <span style="color: black; font-size: 70px; font-weight: bold;">Projeto Canhadas</span>
+            <span style="color: black; font-size: 70px; font-weight: bold;">EDD Compilation</span>
         </div>
         """,
         unsafe_allow_html=True
