@@ -1,15 +1,18 @@
 credentials:
   usernames:
-    usuario1:
-      email: usuario1@example.com
-      name: Usuario Um
-      password: $2b$12$fG/FzWioMHiOVPrJKfqbQe0qrze0gZqkd.mb5q0tcnXleWKeLLGme
-    usuario2:
-      email: usuario2@example.com
-      name: Usuario Dois
-      password: $2b$12$kXB.GFlpequ0nYK03ui5L.cXEZyh4zUau/aYhjBzumKvP14pWgy8e
-  
+    henrique.canhadas:
+      name: Henrique Canhadas 
+      password: ab12
+    vlucas:
+      name: Vitor Lucas
+      password: defg5678
+    Servmar:
+      name: Servmar
+      password: ambiental@365
 cookie:
-  expiry_days: 0.013889
-  key: SUA_CHAVE_DE_COOKIE_SECRETA_AQUI
-  name: servmar_cookie
+#  expiry_days: 0.8 #30 minutos
+  expiry_days: 0.013889 #20 minutos  
+#  expiry_days: 0.0104166 #15 minutos
+#  expiry_days: 0.0013888 #2 minutos
+  key: some_signature_key
+  name: some_cookie_name
