@@ -1,18 +1,16 @@
 credentials:
   usernames:
-    henrique.canhadas:
-      name: Henrique Canhadas 
-      password: ab12
-    vlucas:
-      name: Vitor Lucas
-      password: defg5678
-    Servmar:
-      name: Servmar
-      password: ambiental@365
+    user1:
+      email: user1@example.com
+      password: "senha123"
+    user2:
+      email: user2@example.com
+      password: "senha456"
+
 cookie:
-#  expiry_days: 0.8 #30 minutos
+  #expiry_days: 0.8 #30 minutos
   expiry_days: 0.013889 #20 minutos  
-#  expiry_days: 0.0104166 #15 minutos
-#  expiry_days: 0.0013888 #2 minutos
-  key: some_signature_key
-  name: some_cookie_name
+  #expiry_days: 0.0104166 #15 minutos
+  #expiry_days: 0.0013888 #2 minutos
+  name: cookie_name
+  key: some_random_key
