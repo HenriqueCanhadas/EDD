@@ -2,6 +2,11 @@ import streamlit as st
 import time
 
 #Configurações da página
+# Configurações da página
+st.set_page_config(
+    page_title="Ambitech-EDD",
+    page_icon="",
+    )
 st.markdown(
     """
     <style>
@@ -49,8 +54,8 @@ def projeto():
 
 def login():
     # Adicionando uma imagem
-    image_url = "https://raw.githubusercontent.com/SistemaAmbitech/EDD/main/img/Ativo%201.png"
-    st.image(image_url, width=450)
+    image_url = "https://raw.githubusercontent.com/SistemaAmbitech/EDD/main/img/Ativo%201%201.png"
+    st.image(image_url)
 
     st.title("Login")
 
@@ -78,14 +83,14 @@ def display_temporary_success_message():
 
 def main():
 
-    #hide_menu_style = """
-    #        <style>
-    #        #MainMenu {visibility: hidden;}
-    #            footer {visibility: hidden;}
-    #            header {visibility: hidden;}
-    #        </style>
-    #        """
-    #st.markdown(hide_menu_style, unsafe_allow_html=True)
+    hide_menu_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+                footer {visibility: hidden;}
+                header {visibility: hidden;}
+            </style>
+            """
+    st.markdown(hide_menu_style, unsafe_allow_html=True)
 
     # Inicializa o estado de autenticação, se não estiver definido
     if 'logged_in' not in st.session_state:
