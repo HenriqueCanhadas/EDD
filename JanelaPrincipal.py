@@ -1,12 +1,12 @@
 import streamlit as st
 import time
 
-#Configurações da página
 # Configurações da página
 st.set_page_config(
     page_title="Ambitech-EDD",
-    page_icon="",
-    )
+    page_icon="https://raw.githubusercontent.com/SistemaAmbitech/EDD/main/img/favicon.png",
+)
+
 st.markdown(
     """
     <style>
@@ -40,7 +40,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-#Definir as credenciais diretamente no código
+# Definir as credenciais diretamente no código
 USERS = {
     "usuario1": "senha1",
     "usuario2": "senha2",
@@ -71,7 +71,6 @@ def login():
         else:
             st.error("Usuário ou senha incorretos.")
 
-
 # Função para mensagem temporária de sucesso para o login
 def display_temporary_success_message():
     if st.session_state.get('show_success', False):
@@ -82,7 +81,6 @@ def display_temporary_success_message():
         st.session_state['show_success'] = False  # Reseta a flag
 
 def main():
-
     hide_menu_style = """
             <style>
             #MainMenu {visibility: hidden;}

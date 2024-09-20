@@ -510,148 +510,142 @@ def carregar_analise_2_valores(uploaded_file, novo_caminho, escolha, quantidade_
 #-------------------------------------------------------------------------------------------------------
 
 def main():
-    #Configurações da pagina
-    st.markdown(
-        """
-        <style>
-        html, body, [class*="View"] {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .reportview-container {
-            margin: 10px;
-            flex: 1;
-        }
-        .main .block-container {
-            width: calc(100% - 15px);  /* Subtrai as margens */
-            padding: 0;
-            margin: -90px;
-        }
+    # Estilos principais para a página
+    basic_styles = """
+    <style>
+    html, body, [class*="View"] {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .reportview-container {
+        flex: 1;
+        margin: 10px;
+    }
+    .main .block-container {
+        width: calc(100% - 20px);
+        margin: 0;
+    }
+    .header {
+        text-align: center;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 20px;
+        padding: 10px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .stButton>button {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+        padding: 8px 16px;
+        transition: background-color 0.3s;
+    }
+    .stButton>button:hover {
+        background-color: #45a049;
+    }
+    </style>
+    """
+    st.markdown(basic_styles, unsafe_allow_html=True)
 
-        /* Estilos responsivos para diferentes tamanhos de tela */
-        @media (max-width: 768px) {
-            .reportview-container {
-                margin: 10px; /* Menor margem para telas menores */
-            }
-            .main .block-container {
-                width: calc(100% - 50px); /* Ajusta a largura para telas menores */
-            }
-        }
-        </style>
-        <div style="text-align: center; background-color:#d1d1e4; border-radius: 20px; padding: 10px;">
-            <span style="color: black; font-size: 70px; font-weight: bold;">EDD Compilation</span>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    # Adicionando o cabeçalho
+    st.markdown('<div class="header">EDD Compilation</div>', unsafe_allow_html=True)
 
-    # Escondendo o menu, rodapé e cabeçalho
-    hide_menu_style = """
-        <style>
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        </style>
-        """
-    st.markdown(hide_menu_style, unsafe_allow_html=True)
+    # Ocultar elementos padrão do Streamlit
+    hide_streamlit_elements = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+    """
+    st.markdown(hide_streamlit_elements, unsafe_allow_html=True)
 
-    #Separar pagina em duas Colunas
-    left_column, right_column = st.columns(2,vertical_alignment="top")
-    
-    #Na Coluna Esquerda:
-    with left_column:
-        #Fazer o Upload do Arquivo Excel para o programa
-        uploaded_file = st.file_uploader("Carregue seu arquivo Excel:", type=["xlsx"], key="excel_uploader_1",label_visibility="visible")
-        diretório=""
-        #Se o diretorio e arquivo forem verdadeiros:
-        if uploaded_file:
-            df = pd.read_excel(uploaded_file)
-            st.write("Dados do arquivo Excel:")
-            st.dataframe(df)
-            diretório, _ = os.path.split(uploaded_file.name)
 
-        #Na Coluna Direita:
-        with right_column:
+
+    #Fazer o Upload do Arquivo Excel para o programa
+    uploaded_file = st.file_uploader("Carregue seu arquivo Excel:", type=["xlsx"], key="excel_uploader_1",label_visibility="visible")
+    diretório=""
+    #Se o diretorio e arquivo forem verdadeiros:
+    if uploaded_file:
+        df = pd.read_excel(uploaded_file)
+        st.write("Dados do arquivo Excel:")
+        st.dataframe(df)
+        diretório, _ = os.path.split(uploaded_file.name)
+
+  
             
-            #Variavel para criar um novo nome para o arquivo
-            nome_arquivo = st.text_input("1° Digite o nome do novo arquivo:", key="nome_arquivo")
-            if nome_arquivo:
-                novo_caminho = os.path.join(diretório, nome_arquivo + ".xlsx")
-            else:
-                novo_caminho = os.path.join(diretório, ".xlsx")
-                st.warning("Por favor, insira um nome para o novo arquivo.")
-
-            # Verifica se um nome de arquivo foi inserido
-            if nome_arquivo:
-                #Separar pagina em duas Colunas
-                col1, col2 = st.columns(2)
-                #Na coluna 1 deve ser escolhido o Laboratório
-                with col1:
-                    escolha = st.radio("2° Escolha qual laboratório a análise deve ser feita:", ["Ceimic","ALS", "EuroFins", "Vapor Solutions", "Outros"], key="escolha_laboratorio_1")
-                #Na coluna 2 deve ser escolhido a quantidede de Valores Orientadores
-                with col2:
-                    # Mapeamento de opções de texto para valores numéricos
-                    quantidade_analise_options = {"2 Valores Orientadores": 2, "3 Valores Orientadores": 3}
-                    # Usando os textos descritivos no widget, mas obtendo os valores numéricos quando necessário
-                    quantidade_analise_texto = st.radio("3° Escolha a quantidade de Valores Orientadores:", list(quantidade_analise_options.keys()), key="quantidade_analise_1", index=None)
-                # Verificar se a chave existe no dicionário antes de acessá-la
-                if quantidade_analise_texto in quantidade_analise_options:
-                    quantidade_analise = quantidade_analise_options[quantidade_analise_texto]
-                # Ou outro valor padrão que faça sentido no seu código
-                else:
-                    quantidade_analise = None
-
-            # Oculta as opções seguintes se o nome do arquivo não for inserido
+        #Variavel para criar um novo nome para o arquivo
+        nome_arquivo = st.text_input("1° Digite o nome do novo arquivo:", key="nome_arquivo")
+        if nome_arquivo:
+            novo_caminho = os.path.join(diretório, nome_arquivo + ".xlsx")
+        else:
+            novo_caminho = os.path.join(diretório, ".xlsx")
+            st.warning("Por favor, insira um nome para o novo arquivo.")
+        # Verifica se um nome de arquivo foi inserido
+        if nome_arquivo:
+            #Separar pagina em duas Colunas
+            col1, col2 = st.columns(2)
+            #Na coluna 1 deve ser escolhido o Laboratório
+            with col1:
+                escolha = st.radio("2° Escolha qual laboratório a análise deve ser feita:", ["Ceimic","ALS", "EuroFins", "Vapor Solutions", "Outros"], key="escolha_laboratorio_1")
+            #Na coluna 2 deve ser escolhido a quantidede de Valores Orientadores
+            with col2:
+                # Mapeamento de opções de texto para valores numéricos
+                quantidade_analise_options = {"2 Valores Orientadores": 2, "3 Valores Orientadores": 3}
+                # Usando os textos descritivos no widget, mas obtendo os valores numéricos quando necessário
+                quantidade_analise_texto = st.radio("3° Escolha a quantidade de Valores Orientadores:", list(quantidade_analise_options.keys()), key="quantidade_analise_1", index=None)
+            # Verificar se a chave existe no dicionário antes de acessá-la
+            if quantidade_analise_texto in quantidade_analise_options:
+                quantidade_analise = quantidade_analise_options[quantidade_analise_texto]
+            # Ou outro valor padrão que faça sentido no seu código
             else:
                 quantidade_analise = None
+        # Oculta as opções seguintes se o nome do arquivo não for inserido
+        else:
+            quantidade_analise = None
+        
+        #Se o usuario escolheu 2 Valores Orientadores sao iniciadas as variaveis necessarias com valores none e é chamada a função abrir_radiobutton_modal_2_valores
+        if quantidade_analise == 2:
+            valor_primario = None
+            ordem_planilhas = None
+            valor_secundario = None
+            ordem_planilhas2 = None
+            valor_primario, ordem_planilhas, valor_secundario, ordem_planilhas2 = abrir_radiobutton_modal_2_valores(2)
+        #Se o usuario escolheu 3 Valores Orientadores sao iniciadas as variaveis necessarias com valores none e é chamada a função abrir_radiobutton_modal_3_valores
+        elif quantidade_analise == 3:
+            valor_primario = None
+            ordem_planilhas = None
+            valor_secundario = None
+            ordem_planilhas2 = None
+            valor_terceario = None
+            ordem_planilhas3 = None
+            col1, col2 = st.columns(2)
+            valor_primario, ordem_planilhas, valor_secundario, ordem_planilhas2, valor_terceario, ordem_planilhas3 = abrir_radiobutton_modal_3_valores(2)
+        #Verifica se os valores retornados da função abrir_radiobutton_modal_2_valores ou abrir_radiobutton_modal_3_valores tem algum valor ainda como none
+        if (quantidade_analise == 2 and (valor_primario is not None and ordem_planilhas is not None and valor_secundario is not None and ordem_planilhas2 is not None)) or (quantidade_analise == 3 and (valor_primario is not None and ordem_planilhas is not None and valor_secundario is not None and ordem_planilhas2 is not None and valor_terceario is not None and ordem_planilhas3 is not None)):
             
-            #Se o usuario escolheu 2 Valores Orientadores sao iniciadas as variaveis necessarias com valores none e é chamada a função abrir_radiobutton_modal_2_valores
-            if quantidade_analise == 2:
-                valor_primario = None
-                ordem_planilhas = None
-                valor_secundario = None
-                ordem_planilhas2 = None
-                valor_primario, ordem_planilhas, valor_secundario, ordem_planilhas2 = abrir_radiobutton_modal_2_valores(2)
-
-            #Se o usuario escolheu 3 Valores Orientadores sao iniciadas as variaveis necessarias com valores none e é chamada a função abrir_radiobutton_modal_3_valores
-            elif quantidade_analise == 3:
-                valor_primario = None
-                ordem_planilhas = None
-                valor_secundario = None
-                ordem_planilhas2 = None
-                valor_terceario = None
-                ordem_planilhas3 = None
-                col1, col2 = st.columns(2)
-                valor_primario, ordem_planilhas, valor_secundario, ordem_planilhas2, valor_terceario, ordem_planilhas3 = abrir_radiobutton_modal_3_valores(2)
-
-            #Verifica se os valores retornados da função abrir_radiobutton_modal_2_valores ou abrir_radiobutton_modal_3_valores tem algum valor ainda como none
-            if (quantidade_analise == 2 and (valor_primario is not None and ordem_planilhas is not None and valor_secundario is not None and ordem_planilhas2 is not None)) or (quantidade_analise == 3 and (valor_primario is not None and ordem_planilhas is not None and valor_secundario is not None and ordem_planilhas2 is not None and valor_terceario is not None and ordem_planilhas3 is not None)):
-                
-                #Imprimi uma linha cinza claro na janela
-                st.divider()
-
-                #Se o botão Fazer Análise for precisonado
-                if st.button("Fazer Análise", type="primary"):
-                    #Inicia a barra de progesso zerada
-                    progresso_placeholder = st.empty()
-                    progresso_bar = progresso_placeholder.progress(0)
-
-                    #Se a quantidade de Valores Orientadores for igual a 2
-                    if quantidade_analise == 2:
-                        #Chamada a função carregar_analise_2_valores para fazer o Tabelamento dos dados
-                        for progresso in carregar_analise_2_valores(uploaded_file, novo_caminho, escolha, quantidade_analise, valor_primario, ordem_planilhas, valor_secundario, ordem_planilhas2):
-                            progresso_bar.progress(progresso)
-
-                    #Se a quantidade de Valores Orientadores for igual a 3
-                    elif quantidade_analise == 3:
-                        #Chamada a função carregar_analise_3_valores para fazer o Tabelamento dos dados
-                        for progresso in carregar_analise_3_valores(uploaded_file, novo_caminho, escolha, quantidade_analise, valor_primario, ordem_planilhas, valor_secundario, ordem_planilhas2, valor_terceario, ordem_planilhas3):
-                            progresso_bar.progress(progresso)
-
-                    #Chama a função de download para que o arquivo Tabelado possa ser baixado
-                    download_excel(novo_caminho)
+            #Imprimi uma linha cinza claro na janela
+            st.divider()
+            #Se o botão Fazer Análise for precisonado
+            if st.button("Fazer Análise", type="primary"):
+                #Inicia a barra de progesso zerada
+                progresso_placeholder = st.empty()
+                progresso_bar = progresso_placeholder.progress(0)
+                #Se a quantidade de Valores Orientadores for igual a 2
+                if quantidade_analise == 2:
+                    #Chamada a função carregar_analise_2_valores para fazer o Tabelamento dos dados
+                    for progresso in carregar_analise_2_valores(uploaded_file, novo_caminho, escolha, quantidade_analise, valor_primario, ordem_planilhas, valor_secundario, ordem_planilhas2):
+                        progresso_bar.progress(progresso)
+                #Se a quantidade de Valores Orientadores for igual a 3
+                elif quantidade_analise == 3:
+                    #Chamada a função carregar_analise_3_valores para fazer o Tabelamento dos dados
+                    for progresso in carregar_analise_3_valores(uploaded_file, novo_caminho, escolha, quantidade_analise, valor_primario, ordem_planilhas, valor_secundario, ordem_planilhas2, valor_terceario, ordem_planilhas3):
+                        progresso_bar.progress(progresso)
+                #Chama a função de download para que o arquivo Tabelado possa ser baixado
+                download_excel(novo_caminho)
 
 #Função para fazer o download do arquivo Tabelado
 def download_excel(novo_caminho):
