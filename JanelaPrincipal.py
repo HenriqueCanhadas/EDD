@@ -1,8 +1,7 @@
 import streamlit as st
 import time
 
-# Configurações da página
-st.set_page_config(layout="wide")
+#Configurações da página
 st.markdown(
     """
     <style>
@@ -32,14 +31,11 @@ st.markdown(
         }
     }
     </style>
-    <div style="text-align: Left">
-        <span style="font-size: 50px; font-weight: bold;">SERVMAR</span>
-    </div>
     """,
     unsafe_allow_html=True
 )
 
-# Definir as credenciais diretamente no código
+#Definir as credenciais diretamente no código
 USERS = {
     "usuario1": "senha1",
     "usuario2": "senha2",
@@ -51,9 +47,12 @@ def projeto():
     import EDD_Compilation
     EDD_Compilation.main()
 
-# Função de login
 def login():
-    st.title("Tela de Login")
+    # Adicionando uma imagem
+    image_url = "https://raw.githubusercontent.com/SistemaAmbitech/EDD/main/img/Ativo%201.png"
+    st.image(image_url, width=450)
+
+    st.title("Login")
 
     username = st.text_input("Usuário")
     password = st.text_input("Senha", type="password")
@@ -67,6 +66,7 @@ def login():
         else:
             st.error("Usuário ou senha incorretos.")
 
+
 # Função para mensagem temporária de sucesso para o login
 def display_temporary_success_message():
     if st.session_state.get('show_success', False):
@@ -78,14 +78,14 @@ def display_temporary_success_message():
 
 def main():
 
-    hide_menu_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-                footer {visibility: hidden;}
-                header {visibility: hidden;}
-            </style>
-            """
-    st.markdown(hide_menu_style, unsafe_allow_html=True)
+    #hide_menu_style = """
+    #        <style>
+    #        #MainMenu {visibility: hidden;}
+    #            footer {visibility: hidden;}
+    #            header {visibility: hidden;}
+    #        </style>
+    #        """
+    #st.markdown(hide_menu_style, unsafe_allow_html=True)
 
     # Inicializa o estado de autenticação, se não estiver definido
     if 'logged_in' not in st.session_state:
