@@ -1,16 +1,15 @@
 credentials:
   usernames:
-    user1:
-      email: user1@example.com
-      password: "senha123"
-    user2:
-      email: user2@example.com
-      password: "senha456"
-
+    usuario1:
+      email: usuario1@example.com
+      name: Usuario Um
+      password: $2b$12$fG/FzWioMHiOVPrJKfqbQe0qrze0gZqkd.mb5q0tcnXleWKeLLGme
+    usuario2:
+      email: usuario2@example.com
+      name: Usuario Dois
+      password: $2b$12$kXB.GFlpequ0nYK03ui5L.cXEZyh4zUau/aYhjBzumKvP14pWgy8e
+  
 cookie:
-  #expiry_days: 0.8 #30 minutos
-  expiry_days: 0.013889 #20 minutos  
-  #expiry_days: 0.0104166 #15 minutos
-  #expiry_days: 0.0013888 #2 minutos
-  name: cookie_name
-  key: some_random_key
+  expiry_days: 0.013889
+  key: SUA_CHAVE_DE_COOKIE_SECRETA_AQUI
+  name: servmar_cookie
