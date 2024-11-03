@@ -1,0 +1,17 @@
+[project]
+name = "edd"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django>=5.1.2",
+    "openpyxl>=3.1.5",
+    "streamlit>=1.39.0",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "black>=24.10.0",
+    "isort>=5.13.2",
+]
