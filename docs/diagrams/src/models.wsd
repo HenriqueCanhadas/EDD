@@ -1,0 +1,55 @@
+@startuml models
+' Configurations Default
+skinparam DefaultFontName VictorMono NF
+
+' Configurations Title
+skinparam TitleFontColor #004D65
+skinparam TitleBackgroundColor #F0F0F0
+skinparam TitleBorderColor #004D65
+skinparam TitleBorderRoundCorner 12
+
+
+title Modelos do sistema
+
+package ambitech {
+    package models {
+        class Base {
+            + enabled: Boolean[default=True]
+            + created_at: DateTime
+            + updated_at: DateTime
+        }
+    }
+}
+
+package analizer {
+    package models {
+        class Laboratório<<Base>> {
+            + name: CharField[100]
+        }
+
+        class ValorReferencia<<Base>> {
+            ...
+        }
+
+        class Matriz<<Base>> {
+            ...
+        }
+
+        class Senario<<Base>> {
+            ...
+        }
+    }
+}
+
+' Notes
+note bottom of analizer.models
+    Classes que representam os dados do formulário.
+end note
+
+' Relations
+Base <|-- Laboratório
+Base <|-- ValorReferencia
+Base <|-- Matriz
+Base <|-- Senario
+
+@enduml
